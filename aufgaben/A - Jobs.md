@@ -4,8 +4,6 @@
 
 1. Job Code in ein .yaml File kopieren
 
-![[cronejob.yaml]]
-
 Code Beispiel:
 
 ```
