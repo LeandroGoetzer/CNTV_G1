@@ -1,6 +1,7 @@
 [2_Unterrichtsressourcen/A · main · TBZ-HF-Informatik / modules for students / Cloud Native Technology Vertiefung · GitLab](https://gitlab.com/ch-tbz-hf/Stud/v-cnt/-/tree/main/2_Unterrichtsressourcen/A)
 #### [Hauptseite](/README.md)
 
+Bild 5
 # CronJobs
 
 1. Job Code in ein .yaml File kopieren
@@ -35,7 +36,7 @@ jobTemplate:
 
 ![bild2](/attachements/2.png)
 
-![bild3](/attachements/.png)
+![bild3](/attachements/3.png)
 
 4. Nun auf die Kubernetes Maschine per CLI verbinden
 
