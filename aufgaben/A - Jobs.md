@@ -32,9 +32,9 @@ jobTemplate:
 
 3. Yaml File per Webkonsole hochladen
 
-Bild 2
+![bild2](/attachements/2.png)
 
-Bild 3
+![bild3](/attachements/.png)
 
 4. Nun auf die Kubernetes Maschine per CLI verbinden
 
