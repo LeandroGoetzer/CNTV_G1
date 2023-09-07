@@ -34,9 +34,8 @@ jobTemplate:
 
 3. Yaml File per Webkonsole hochladen
 
-![Test](/attachements/Pasted image 20230907184952.png)
+![Test]("/attachements/Pasted image 20230907184952.png")
 
-![Test]()
 
 ![[Pasted image 20230907185224.png]]
 
