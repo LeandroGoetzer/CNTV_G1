@@ -9,5 +9,5 @@
 #### [E -Zugriffsteuerung](/aufgaben/E%20-%20Zugriffsteuerung.md)
 #### [H - Helm der paketmanager für Kubernetes](/aufgaben/H-%20Helm%20der%20paketmanager%20für%20Kubernetes.md)
 #### [I - Operator Pattern](/aufgaben/I%20-%20Operator%20Pattern.md)
-#### [J - MOnitoring](/aufgaben/J%20-%20Monitoring.md)
+#### [J - Monitoring](/aufgaben/J%20-%20Monitoring.md)
 #### [M - Serverless](/aufgaben/M%20-%20Serverless.md)
