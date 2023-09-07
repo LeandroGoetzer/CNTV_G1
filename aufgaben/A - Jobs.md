@@ -4,8 +4,6 @@
 
 1. Job Code in ein .yaml File kopieren
 
-![[cronejob.yaml]]
-
 Code Beispiel:
 
 ```
@@ -34,10 +32,9 @@ jobTemplate:
 
 3. Yaml File per Webkonsole hochladen
 
-![Test]("/attachements/Pasted image 20230907184952.png")
+Bild 2
 
-
-![[Pasted image 20230907185224.png]]
+Bild 3
 
 4. Nun auf die Kubernetes Maschine per CLI verbinden
 
@@ -61,4 +58,4 @@ kubectl delete -f https://k8s.io/examples/application/job/cronjob.yaml
 
 Hier aufgezeigt, wie dies aussieht:
 
-![[Pasted image 20230907184758.png]]
+Bild 4
