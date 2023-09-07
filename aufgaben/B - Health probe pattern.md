@@ -2,9 +2,10 @@
 #### [Hauptseite](/README.md)
 #### [A - Jobs](/aufgaben/A%20-%20Jobs.md)
 # B - Health probe pattern
-blublu
 
-### Kluster
+
+
+### K8s Kluster (Recap)
 
 Auf Haupt Kubernetes ausführen `microk8s add-node`
 
