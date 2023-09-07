@@ -34,7 +34,7 @@ jobTemplate:
 
 ![bild2](/attachements/2.png)
 
-![bild3](/attachements/.png)
+![bild3](/attachements/3.png)
 
 4. Nun auf die Kubernetes Maschine per CLI verbinden
 
