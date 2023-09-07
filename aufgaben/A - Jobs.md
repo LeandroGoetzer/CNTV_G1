@@ -4,28 +4,44 @@
 
 1. Job Code in ein .yaml File kopieren
 
-Code Beispiel:
+Dieses Skript zählt von 0-100 und das zweite 0-1000.
+
+Unser Code Beispiel:
 
 ```
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-name: hello
+  name: count-to-1000
 spec:
-schedule: "* * * * *"
-jobTemplate:
-    spec:
-    template:
-        spec:
-        containers:
-        - name: hello
-            image: busybox:1.28
-            imagePullPolicy: IfNotPresent
-            command:
-            - /bin/sh
-            - -c
-            - date; echo Hello from the Kubernetes cluster
-        restartPolicy: OnFailure
+  schedule: "*/1 * * * *" # Schedule to run every minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: count-to-1000
+            image: busybox:1.28
+            command: ["sh", "-c", "for i in {1..1000}; do echo $i; done"]
+          restartPolicy: OnFailure
+```
+
+```
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: count-to-100
+spec:
+  schedule: "*/1 * * * *" # Schedule to run every minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: count-to-100
+            image: busybox:1.28
+            command: ["sh", "-c", "for i in {1..100}; do echo $i; done"]
+          restartPolicy: OnFailure
 ```
 
 1. Auf Kubernetes Webkonsole verbinden [Kubernetes Dashboard](https://10.1.38.36:8443/#/job?namespace=default)

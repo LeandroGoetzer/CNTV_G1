@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: count-to-1000
+spec:
+  schedule: "*/1 * * * *" # Schedule to run every minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: count-to-1000
+            image: busybox:1.28
+            command: ["sh", "-c", "for i in {1..1000}; do echo $i; done"]
+          restartPolicy: OnFailure
