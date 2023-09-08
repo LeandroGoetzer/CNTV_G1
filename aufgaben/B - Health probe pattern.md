@@ -3,7 +3,22 @@
 #### [A - Jobs](/aufgaben/A%20-%20Jobs.md)
 # B - Health probe pattern
 
+## Liveness-Test
+Das Kubelet verwendet Liveness Probes, um zu wissen, wann ein Container neu gestartet werden muss. Liveness Probes können zum Beispiel einen Deadlock erkennen, bei dem eine Anwendung zwar läuft, aber nicht vorankommt. Der Neustart eines Containers in einem solchen Zustand kann dazu beitragen, dass die Anwendung trotz Fehlern besser verfügbar ist.
+Folgende möglichkeit für einen Liveness-Test gibt Kubernetes:
+- [Liveness-Test via "command"](#liveness-test-via-command)
+- [Liveness-Test via HTTP anfrage](#liveness-test-via-command)
+- [Liveness-Test via TCP](#liveness-test-via-command)
+- [Liveness-Test via gRPC](#liveness-test-via-command)
 
+### Liveness-Test via "command"
+Text
+### Liveness-Test via HTTP anfrage
+Text
+### Liveness-Test via TCP
+Text
+### Liveness-Test via gRPC
+Text
 
 ### K8s Kluster (Recap)
 
