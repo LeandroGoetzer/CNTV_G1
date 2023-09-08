@@ -12,7 +12,38 @@ Folgende möglichkeit für einen Liveness-Test gibt Kubernetes:
 - [Liveness-Test via gRPC](#liveness-test-via-command)
 
 ### Liveness-Test via "command"
-Text
+
+Das folgende Skrip prüft mittels einem "command" ob der Container noch so funtkioniert wie definiert.
+Beim Starten des Pods wird defniert, dass da directory mit dem File `/tmp/healty` erstellt wird. Nun defniert man bei der Liveness-Probe das es mittel "command", also `cat /tmp/healty` geprüft wird ob das File existiert. Existiert das File bleibt der Container am Leben und wenn nicht wird dieser gelöscht und neu Gestartet. Für die Prüfug gibt es verschiedene Parameter die man setzen kann, in diesem Beispiel verwenden wir den `initialDelaySeconds` (wie lange soll bis zur ersten Prüfung gewartet werden) und `periodSeconds`(in welchlem Interval soll geprüft werden). 
+
+In den ersten 30 Sekunden der Lebensdauer des Containers gibt es eine Datei `/tmp/healthy`. Während der ersten 30 Sekunden gibt der Befehl `cat /tmp/healthy` also einen Erfolgscode zurück. Nach 30 Sekunden liefert cat /tmp/healthy einen Fehlercode.
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    image: registry.k8s.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5 
+```
+
+
+
+
 ### Liveness-Test via HTTP anfrage
 Text
 ### Liveness-Test via TCP
