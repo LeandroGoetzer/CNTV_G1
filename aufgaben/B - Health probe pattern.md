@@ -7,9 +7,9 @@
 Das Kubelet verwendet Liveness Probes, um zu wissen, wann ein Container neu gestartet werden muss. Liveness Probes können zum Beispiel einen Deadlock erkennen, bei dem eine Anwendung zwar läuft, aber nicht vorankommt. Der Neustart eines Containers in einem solchen Zustand kann dazu beitragen, dass die Anwendung trotz Fehlern besser verfügbar ist.
 Folgende möglichkeit für einen Liveness-Test gibt Kubernetes:
 - [Liveness-Test via "command"](#liveness-test-via-command)
-- [Liveness-Test via HTTP anfrage](#liveness-test-via-command)
-- [Liveness-Test via TCP](#liveness-test-via-command)
-- [Liveness-Test via gRPC](#liveness-test-via-command)
+- [Liveness-Test via HTTP anfrage](#liveness-test-via-http-anfrage)
+- [Liveness-Test via TCP](#liveness-test-via-tcp)
+- [Liveness-Test via gRPC](#liveness-test-via-grpc)
 
 ### Liveness-Test via "command"
 
@@ -66,15 +66,71 @@ spec:
           value: Awesome
       initialDelaySeconds: 3
       periodSeconds: 3
+```
+Der Code für die Prüfung via Http ist im Image enthalten.
+Code (Mehr Infos auf [Server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)):
 
+```
+http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+    duration := time.Now().Sub(started)
+    if duration.Seconds() > 10 {
+        w.WriteHeader(500)
+        w.Write([]byte(fmt.Sprintf("error: %v", duration.Seconds())))
+    } else {
+        w.WriteHeader(200)
+        w.Write([]byte("ok"))
+    }
+})
 ```
 
 ### Liveness-Test via TCP
 Eine dritte Methode wäre es über TCP sich mit dem Container zu verbinden. Sollange die Verbindung erfolgreich ist bleibet der Container bestehend
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: goproxy
+  labels:
+    app: goproxy
+spec:
+  containers:
+  - name: goproxy
+    image: registry.k8s.io/goproxy:0.1
+    ports:
+    - containerPort: 8080
+    readinessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    livenessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 20
+
+```
 
 ### Liveness-Test via gRPC
 
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: etcd-with-grpc
+spec:
+  containers:
+  - name: etcd
+    image: registry.k8s.io/etcd:3.5.1-0
+    command: [ "/usr/local/bin/etcd", "--data-dir",  "/var/lib/etcd", "--listen-client-urls", "http://0.0.0.0:2379", "--advertise-client-urls", "http://127.0.0.1:2379", "--log-level", "debug"]
+    ports:
+    - containerPort: 2379
+    livenessProbe:
+      grpc:
+        port: 2379
+      initialDelaySeconds: 10
 
+```
 
 
 #### [C - Init container](/aufgaben/C%20-%20Init%20container.md)
