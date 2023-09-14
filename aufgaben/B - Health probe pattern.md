@@ -9,11 +9,11 @@ Folgende möglichkeit für einen Liveness-Test gibt Kubernetes:
 - [Liveness-Test via "command"](#liveness-test-via-command)
 - [Liveness-Test via HTTP anfrage](#liveness-test-via-http-anfrage)
 - [Liveness-Test via TCP](#liveness-test-via-tcp)
-- [Liveness-Test via gRPC](#liveness-test-via-grpc)
 
 ### Liveness-Test via "command"
 
-In den ersten 30 Sekunden der Lebensdauer des Containers gibt es eine Datei `/tmp/healthy`. Während der ersten 30 Sekunden gibt der Befehl `cat /tmp/healthy` also einen Erfolgscode zurück. Nach 30 Sekunden liefert `cat /tmp/healthy` einen Fehlercode.
+In den ersten 30 Sekunden der Lebensdauer des Containers gibt es eine Datei `/tmp/healthy`. Während der ersten 30 Sekunden gibt der Befehl `cat /tmp/healthy` also einen Erfolgscode zurück. Nach 30 Sekunden liefert `cat /tmp/healthy` einen Fehlercode und der Container wird gelöscht und neu aufgebaut.
+<strong>Code:</strong>
 ```
 apiVersion: v1
 kind: Pod
@@ -38,12 +38,11 @@ spec:
       periodSeconds: 5 
 ```
 
-
-
-
 ### Liveness-Test via HTTP anfrage
-Eine Weiter Methode ist es mit "HTTP Request" zu prüfen ob der Container noch am Leben ist. Sobal dieser keine Antwort gibt wird er Eliminiert.
-Folgendes Beispiel:
+Eine Weiter Methode ist es mit "HTTP Request" zu prüfen ob der Container noch am Leben ist. 
+Jeder HTTP-Statuscode, der größer oder gleich 200 und kleiner als 400 ist, bedeutet Erfolg. Jeder andere Code bedeutet einen Fehler. Der Quellcode für den Server ist in [Server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go) zu sehen.
+In den ersten 10 Sekunden, in denen der Container aktiv ist, gibt der /healthz-Handler einen Status von 200 zurück. Danach gibt der Handler einen Status von 500 zurück.Danach wird der Container gelöscht.
+<strong>Code:</strong>
 ```
 apiVersion: v1
 kind: Pod
@@ -67,24 +66,11 @@ spec:
       initialDelaySeconds: 3
       periodSeconds: 3
 ```
-Der Code für die Prüfung via Http ist im Image enthalten.
-Code (Mehr Infos auf [Server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)):
-
-```
-http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
-    duration := time.Now().Sub(started)
-    if duration.Seconds() > 10 {
-        w.WriteHeader(500)
-        w.Write([]byte(fmt.Sprintf("error: %v", duration.Seconds())))
-    } else {
-        w.WriteHeader(200)
-        w.Write([]byte("ok"))
-    }
-})
-```
 
 ### Liveness-Test via TCP
-Eine dritte Methode wäre es über TCP sich mit dem Container zu verbinden. Sollange die Verbindung erfolgreich ist bleibet der Container bestehend
+Eine dritte Methode wäre es über TCP sich mit dem Container zu verbinden. Sollange die Verbindung erfolgreich ist bleibet der Container bestehend.
+Die Konfiguration für die TCP-Prüfung ist der HTTP-Prüfung sehr ähnlich. In diesem Beispiel werden sowohl Readiness- als auch Liveness-Probes verwendet. Das Kubelet sendet die erste Readiness-Probe 5 Sekunden nach dem Start des Containers. Damit wird versucht, eine Verbindung zum `goproxy` Container auf Port 8080 herzustellen. Wenn die Prüfung erfolgreich ist, wird der Pod als bereit markiert. Das Kubelet wird diese Prüfung weiterhin alle 10 Sekunden durchführen.
+<strong>Code:</strong>
 ```
 apiVersion: v1
 kind: Pod
@@ -110,26 +96,42 @@ spec:
       periodSeconds: 20
 
 ```
-
-### Liveness-Test via gRPC
-
+## Readiness
+Manchmal sind Anwendungen vorübergehend nicht in der Lage, den Datenverkehr zu bedienen. Beispielsweise muss eine Anwendung während des Starts große Daten- oder Konfigurationsdateien laden oder ist nach dem Start auf externe Dienste angewiesen. In solchen Fällen möchten man die Anwendung nicht abschalten, aber auch keine Anfragen an sie senden. Kubernetes bietet Readiness-Probes, um solche Situationen zu erkennen und zu entschärfen. Ein Pod mit Containern, die melden, dass sie nicht bereit sind, erhält keinen Datenverkehr über Kubernetes-Dienste.
+Readiness-Probes werden ähnlich wie Liveness-Probes konfiguriert. Der einzige Unterschied besteht darin, dass Sie das Feld `readinessProbe` anstelle des Feldes `livenessProbe` verwenden.
+<strong>Code:</strong>
 ```
-apiVersion: v1
-kind: Pod
-metadata:
-  name: etcd-with-grpc
-spec:
-  containers:
-  - name: etcd
-    image: registry.k8s.io/etcd:3.5.1-0
-    command: [ "/usr/local/bin/etcd", "--data-dir",  "/var/lib/etcd", "--listen-client-urls", "http://0.0.0.0:2379", "--advertise-client-urls", "http://127.0.0.1:2379", "--log-level", "debug"]
-    ports:
-    - containerPort: 2379
-    livenessProbe:
-      grpc:
-        port: 2379
-      initialDelaySeconds: 10
+readinessProbe:
+  exec:
+    command:
+    - cat
+    - /tmp/healthy
+  initialDelaySeconds: 5
+  periodSeconds: 5
+```
 
+## Startup Probes
+In manchen Fällen hat man mit Legacy-Anwendungen zu tun, die bei ihrer ersten Initialisierung eine zusätzliche Startzeit benötigen könnten. In solchen Fällen kann es knifflig sein, Parameter für eine Liveness-Probe einzurichten, ohne die schnelle Reaktion auf Deadlocks zu beeinträchtigen, die eine solche Probe motiviert. Der Trick besteht darin, eine Startup-Probe mit demselben Befehl, HTTP- oder TCP-Check, mit einem `failureThreshold * periodSeconds` einzurichten, der lang genug ist, um den schlimmsten Fall einer Startup-Zeit abzudecken.
+<strong>Code Bsp.:</strong>
+```
+ports:
+- name: liveness-port
+  containerPort: 8080
+  hostPort: 8080
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: liveness-port
+  failureThreshold: 1
+  periodSeconds: 10
+
+startupProbe:
+  httpGet:
+    path: /healthz
+    port: liveness-port
+  failureThreshold: 30
+  periodSeconds: 10
 ```
 
 
