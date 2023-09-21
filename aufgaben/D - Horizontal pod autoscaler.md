@@ -107,5 +107,7 @@ In einem anderen Terminal schauen wir uns den autoscaler an und was hier passier
 
          $ kubectl get hpa php-apache --watch
 
+![OK](../attachements/8.png)
+
 #### [E - Zugriffsteuerung](/aufgaben/E%20-%20Zugriffsteuerung.md)
 #### [Hauptseite](/README.md)
