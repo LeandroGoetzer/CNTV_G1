@@ -101,7 +101,7 @@ Als Nächstes sehen wir uns an, wie der Autoscaler auf eine erhöhte Last reagie
         # so that the load generation continues and you can carry on with the rest of the steps
          $ kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 
-![OK](:/../../attachements/7.png)
+![OK](../attachements/7.png)
 
 In einem anderen Terminal schauen wir uns den autoscaler an und was hier passier:
 
