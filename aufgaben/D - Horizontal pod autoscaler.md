@@ -5,7 +5,7 @@
 
 ## Deploy a sample application
 
-Run and expose php-apache server
+Um einen HorizontalPodAutoscaler zu demonstrieren, starten wir zunächst ein Deployment, das einen Container mit dem hpa-Beispiel-Image ausführt, und stellen ihn mit dem folgenden Manifest als Dienst bereit:
 
 php-apache.yml erstellen
 
@@ -49,7 +49,7 @@ Folgenden Code in das yml File kopieren:
         selector:
             run: php-apache
 
-Ressource erstellen:
+Danach führen wir folgenden befehl aus um dies zu starten:
 
         $ kubectl apply -f php-apache.yaml
 
@@ -72,12 +72,12 @@ Zeigt die Version:
 
         $ kubectl version
 
-Zeigt die Pods im Namespacce kube-system an
+Zeigt die Pods im Namespacce kube-system an:
 
         $ kubectl get pods --namespace kube-system
 
 
-Erstellt den Container für php-apache
+Erstellt des HorizontalPodAutoscaler:
 
         $ kubectl autoscale deployment php-apache --namespace kube-system --cpu-percent=50 --min=1 --max=10
 
@@ -93,18 +93,17 @@ Zeigt die aktuellen hpa im Namespace an:
 
         $ kubectl get hpa  --namespace kube-system --show-kind=true
 
-Increase the load:
+## Increase the load:
 
 Als Nächstes sehen wir uns an, wie der Autoscaler auf eine erhöhte Last reagiert. Zu diesem Zweck starten wir einen anderen Pod, der als Client fungiert. Der Container im Client-Pod läuft in einer Endlosschleife und sendet Anfragen an den php-apache-Diens
 
+        # Run this in a separate terminal
+        # so that the load generation continues and you can carry on with the rest of the steps
          $ kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 
 In einem anderen Terminal schauen wir uns den autoscaler an und was hier passier:
 
          $ kubectl get hpa php-apache --watch
 
-
-
-test
 #### [E - Zugriffsteuerung](/aufgaben/E%20-%20Zugriffsteuerung.md)
 #### [Hauptseite](/README.md)
