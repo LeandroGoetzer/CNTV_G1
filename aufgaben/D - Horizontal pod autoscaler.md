@@ -7,7 +7,49 @@
 
 Run and expose php-apache server
 
+php-apache.yml erstellen
+
         $ cat php-apache.yml
+
+Folgenden Code in das yml File kopieren:
+
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: php-apache
+        spec:
+        selector:
+            matchLabels:
+            run: php-apache
+        template:
+            metadata:
+            labels:
+                run: php-apache
+            spec:
+            containers:
+            - name: php-apache
+                image: registry.k8s.io/hpa-example
+                ports:
+                - containerPort: 80
+                resources:
+                limits:
+                    cpu: 500m
+                requests:
+                    cpu: 200m
+        ---
+        apiVersion: v1
+        kind: Service
+        metadata:
+        name: php-apache
+        labels:
+            run: php-apache
+        spec:
+        ports:
+        - port: 80
+        selector:
+            run: php-apache
+
+Ressource erstellen:
 
         $ kubectl apply -f php-apache.yaml
 
@@ -16,13 +58,26 @@ Ausgabe:
         deployment.apps/php-apache created
         service/php-apache created
 
+Erstellt den Container für php-apache
+
+        $ kubectl create deployment php-apache --image=php:7.4-apache -n kube-system
+
+Ausgabe:
+
+        deployment.apps/php-apache created
+
 ## Create the Kubernetes service
+
+Zeigt die Version:
 
         $ kubectl version
 
+Zeigt die Pods im Namespacce kube-system an
+
         $ kubectl get pods --namespace kube-system
 
-        $ kubectl create deployment php-apache --image=php:7.4-apache -n kube-system
+
+Erstellt den Container für php-apache
 
         $ kubectl autoscale deployment php-apache --namespace kube-system --cpu-percent=50 --min=1 --max=10
 
@@ -30,13 +85,21 @@ Ausgabe:
 
         horizontalpodautoscaler.autoscaling/php-apache autoscaled
 
+Zeigt die aktuellen Pods im Namespace an:
+
         $ kubectl get pods --namespace kube-system --show-kind=true
+
+Zeigt die aktuellen hpa im Namespace an:
 
         $ kubectl get hpa  --namespace kube-system --show-kind=true
 
-Increade the load:
+Increase the load:
+
+Als Nächstes sehen wir uns an, wie der Autoscaler auf eine erhöhte Last reagiert. Zu diesem Zweck starten wir einen anderen Pod, der als Client fungiert. Der Container im Client-Pod läuft in einer Endlosschleife und sendet Anfragen an den php-apache-Diens
 
          $ kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
+
+In einem anderen Terminal schauen wir uns den autoscaler an und was hier passier:
 
          $ kubectl get hpa php-apache --watch
 
