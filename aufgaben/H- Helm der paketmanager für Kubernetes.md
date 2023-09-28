@@ -3,6 +3,22 @@
 #### [E - Zugriffsteuerung](/aufgaben/E%20-%20Zugriffsteuerung.md)
 # H - Helm der paketmanager für Kubernetes
 
+In Kubernetes ist ein "Helm" ein Paketmanager, der dazu verwendet wird, Kubernetes-Anwendungen zu verwalten und zu bereitstellen. Helm ermöglicht es Entwicklern und Betreibern, Container-Anwendungen in Kubernetes-Clustern einfacher zu verwalten, indem es die Verpackung von Anwendungen und deren Abhängigkeiten in sogenannten "Charts" erleichtert.
+
+Hier sind einige der wichtigsten Konzepte in Helm:
+
+Chart: Ein Helm-Chart ist ein Paket von vordefinierten Kubernetes-Ressourcen, die eine Anwendung oder einen Service beschreiben. Ein Chart kann beispielsweise Konfigurationsdateien, Dienste, Berechtigungen und Abhängigkeiten enthalten. Mit Charts können Sie Anwendungen schnell und wiederholbar bereitstellen.
+
+Release: Eine Helm-Release ist eine bestimmte Instanz eines Charts in einem Kubernetes-Cluster. Jedes Mal, wenn Sie ein Chart in einem Cluster bereitstellen, wird eine Release-Instanz erstellt. Diese Instanz kann unabhängig von anderen Instanzen des gleichen Charts konfiguriert und verwaltet werden.
+
+Repository: Helm-Charts werden normalerweise in Repositories gespeichert, die als zentrale Orte dienen, um Charts zu veröffentlichen und gemeinsam zu nutzen. Helm-Repositories können öffentlich sein, oder Sie können eigene private Repositories erstellen, um proprietäre Charts zu hosten.
+
+Values: In Helm können Sie sogenannte "Values" verwenden, um die Konfiguration eines Charts anzupassen. Values sind Parameter, die in einem Helm-Release verwendet werden, um Einstellungen wie Ressourcenlimits, Datenbankverbindungen oder andere anwendungsspezifische Konfigurationen anzupassen.
+
+Template Engine: Helm verwendet eine Go-Vorlagen-Engine, um die in einem Chart definierten Kubernetes-Ressourcen mit den angegebenen Values zu kombinieren und YAML-Dateien zu generieren, die dann im Cluster bereitgestellt werden.
+
+Durch die Verwendung von Helm können Entwickler und Betreiber Kubernetes-Anwendungen effizienter und konsistenter bereitstellen, aktualisieren und verwalten, wodurch die Komplexität der Kubernetes-Verwaltung reduziert wird. Helm bietet auch die Möglichkeit, Charts zu versionieren und auf einfache Weise auf neue Versionen zu aktualisieren. Dies macht es zu einem wichtigen Werkzeug in der Kubernetes-Entwicklung und -Betriebspraxis.
+
 ## Installation
 
 
