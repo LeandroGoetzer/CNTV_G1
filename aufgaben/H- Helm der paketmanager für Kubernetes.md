@@ -72,10 +72,10 @@ Für diese Anleitung erstellen wir ein einfaches Diagramm namens mychart und ers
 ### Ein kurzer Blick auf 'mychart/templates/'
 Wenn man einen Blick auf das Verzeichnis 'mychart/templates/' wirft, wird man feststellen, dass dort bereits einige Dateien vorhanden sind.
 
-- 'NOTES.txt' : Der "Hilfetext" für Ihr Diagramm. Dieser wird Ihren Benutzern angezeigt, wenn sie die Helminstallation ausführen.
-- 'deployment.yaml' : Ein grundlegendes Manifest für die Erstellung eines Kubernetes-Einsatzes
-- 'service.yaml' : Ein grundlegendes Manifest für die Erstellung eines Service-Endpunkts für Ihr Deployment
-- '_helpers.tpl' : Ein Ort, an dem Sie Hilfsvorlagen ablegen, die Sie im gesamten Diagramm wiederverwenden können
+- `NOTES.txt` : Der "Hilfetext" für Ihr Diagramm. Dieser wird Ihren Benutzern angezeigt, wenn sie die Helminstallation ausführen.
+- `deployment.yam` : Ein grundlegendes Manifest für die Erstellung eines Kubernetes-Einsatzes
+- `service.yaml` : Ein grundlegendes Manifest für die Erstellung eines Service-Endpunkts für Ihr Deployment
+- `_helpers.tpl` : Ein Ort, an dem Sie Hilfsvorlagen ablegen, die Sie im gesamten Diagramm wiederverwenden können
 
 Diese Dateien werden nun alle gelöscht. Auf diese Weise können wir unser Beispiel von Grund auf aufbauen. Wir werden unsere eigene NOTES.txt und _helpers.tpl erstellen, während wir arbeiten.
 
@@ -123,7 +123,7 @@ Der Befehl helm get manifest nimmt einen Versionsnamen (full-coral) und druckt a
 
 Von da an können wir sehen, dass die YAML-Daten genau dem entsprechen, was wir in unsere configmap.yaml-Datei geschrieben haben.
 
-Jetzt können wir unsere Version deinstallieren: 'helm uninstall full-coral'.
+Jetzt können wir unsere Version deinstallieren: `helm uninstall full-coral`.
 
 
 #### [I - Operator Pattern](/aufgaben/I%20-%20Operator%20Pattern.md)
