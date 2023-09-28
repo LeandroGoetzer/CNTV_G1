@@ -79,6 +79,8 @@ Für diese Anleitung erstellen wir ein einfaches Diagramm namens mychart und ers
         $ helm create mychart
         Creating mychart
 
+
+
 ### Ein kurzer Blick auf `mychart/templates/`
 Wenn man einen Blick auf das Verzeichnis `mychart/templates/` wirft, wird man feststellen, dass dort bereits einige Dateien vorhanden sind.
 
@@ -86,6 +88,8 @@ Wenn man einen Blick auf das Verzeichnis `mychart/templates/` wirft, wird man fe
 - `deployment.yam` : Ein grundlegendes Manifest für die Erstellung eines Kubernetes-Einsatzes
 - `service.yaml` : Ein grundlegendes Manifest für die Erstellung eines Service-Endpunkts für Ihr Deployment
 - `_helpers.tpl` : Ein Ort, an dem Sie Hilfsvorlagen ablegen, die Sie im gesamten Diagramm wiederverwenden können
+
+![Bild](/attachements/13.png)
 
 Diese Dateien werden nun alle gelöscht. Auf diese Weise können wir unser Beispiel von Grund auf aufbauen. Wir werden unsere eigene NOTES.txt und _helpers.tpl erstellen, während wir arbeiten.
 
@@ -97,7 +101,7 @@ Hat aber bei uns nicht geklappt, wir haben dies so durchgeführt:
 
         rm -r *
 
-        
+![Bild](/attachements/14.png)
 
 ## A First Template
 
@@ -105,7 +109,7 @@ Die erste Vorlage, die wir erstellen werden, ist eine ConfigMap. In Kubernetes i
 
 Da es sich bei ConfigMaps um grundlegende Ressourcen handelt, sind sie ein guter Ausgangspunkt für uns.
 
-Beginnen wir mit der Erstellung einer Datei namens mychart/templates/configmap.yaml:
+Beginnen wir mit der Erstellung einer Datei namens `nano configmap.yaml`:
 
         apiVersion: v1
         kind: ConfigMap
@@ -113,6 +117,10 @@ Beginnen wir mit der Erstellung einer Datei namens mychart/templates/configmap.y
         name: mychart-configmap
         data:
         myvalue: "Hello World"
+
+![Bild](/attachements/15.png)
+
+![Bild](/attachements/16.png)
 
 Mit dieser einfachen Vorlage haben wir nun ein installierbares chart. Und wir können es wie folgt installieren:
 
@@ -123,6 +131,8 @@ Mit dieser einfachen Vorlage haben wir nun ein installierbares chart. Und wir k�
         STATUS: DEPLOYED
         REVISION: 1
         TEST SUITE: None
+
+![Bild](/attachements/17.png)
 
 Mit Helm können wir die Freigabe abrufen und die tatsächlich geladene Vorlage sehen.
 
@@ -137,12 +147,15 @@ Mit Helm können wir die Freigabe abrufen und die tatsächlich geladene Vorlage 
         data:
         myvalue: "Hello World"
 
+![Bild](/attachements/18.png)
+
 Der Befehl helm get manifest nimmt einen Versionsnamen (full-coral) und druckt alle Kubernetes-Ressourcen aus, die auf den Server hochgeladen wurden. Jede Datei beginnt mit ---, um den Beginn eines YAML-Dokuments anzuzeigen, und wird dann von einer automatisch generierten Kommentarzeile gefolgt, die uns sagt, welche Vorlagendatei dieses YAML-Dokument generiert hat.
 
 Von da an können wir sehen, dass die YAML-Daten genau dem entsprechen, was wir in unsere configmap.yaml-Datei geschrieben haben.
 
 Jetzt können wir unsere Version deinstallieren: `helm uninstall full-coral`.
 
+![Bild](/attachements/19.png)
 
 #### [I - Operator Pattern](/aufgaben/I%20-%20Operator%20Pattern.md)
 #### [Hauptseite](/README.md)
