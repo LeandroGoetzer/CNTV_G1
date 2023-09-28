@@ -15,7 +15,7 @@ Sie können dieses Skript abrufen und es dann lokal ausführen. Es ist gut dokum
         $ chmod 700 get_helm.sh
         $ ./get_helm.sh
 
-(Installationsanleitung)[https://helm.sh/docs/intro/install/]
+[Installationsanleitung](https://helm.sh/docs/intro/install/)
 
 
 ## Initialize a Helm Chart Repository
