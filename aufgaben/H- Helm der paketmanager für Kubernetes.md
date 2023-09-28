@@ -15,6 +15,8 @@ Sie können dieses Skript abrufen und es dann lokal ausführen. Es ist gut dokum
         $ chmod 700 get_helm.sh
         $ ./get_helm.sh
 
+![Bild](/attachements/8.png)
+
 [Installationsanleitung](https://helm.sh/docs/intro/install/)
 
 
@@ -30,6 +32,8 @@ Sobald diese installiert ist, kann man die charts auflisten, die man installiere
 
 [QuickstartGuide](https://helm.sh/docs/intro/quickstart/)
 
+![Bild](/attachements/9.png)
+
 ## Install an Example Chart
 
 Um eine chart zu installieren, kann man den Befehl helm install ausführen. Helm bietet mehrere Möglichkeiten, ein Diagramm zu finden und zu installieren, aber am einfachsten ist es, die Bitnami-Diagramme zu verwenden.
@@ -44,11 +48,15 @@ Um eine chart zu installieren, kann man den Befehl helm install ausführen. Helm
         TEST SUITE: None
         NOTES: ...
 
+![Bild](/attachements/10.png)
+
 Mit Helm ist es einfach zu sehen, was veröffentlicht wurde:
 
         $ helm list
         NAME            	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART      	APP VERSION
         mysql-1612624192	default  	1       	2021-02-06 16:09:56.283059 +0100 CET	deployed	mysql-8.3.0	8.0.23
+
+![Bild](/attachements/11.png)
 
 Um eine Version zu deinstallieren, verwenden Sie den Befehl helm uninstall:
 
@@ -59,6 +67,8 @@ Um eine Version zu deinstallieren, verwenden Sie den Befehl helm uninstall:
         $ helm status mysql-1612624192
         Status: UNINSTALLED
         ...
+
+![Bild](/attachements/12.png)
 
 [QuickstartGuide](https://helm.sh/docs/intro/quickstart/)
 
