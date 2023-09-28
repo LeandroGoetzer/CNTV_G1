@@ -69,8 +69,8 @@ Für diese Anleitung erstellen wir ein einfaches Diagramm namens mychart und ers
         $ helm create mychart
         Creating mychart
 
-### Ein kurzer Blick auf 'mychart/templates/'
-Wenn man einen Blick auf das Verzeichnis 'mychart/templates/' wirft, wird man feststellen, dass dort bereits einige Dateien vorhanden sind.
+### Ein kurzer Blick auf `mychart/templates/`
+Wenn man einen Blick auf das Verzeichnis `mychart/templates/` wirft, wird man feststellen, dass dort bereits einige Dateien vorhanden sind.
 
 - `NOTES.txt` : Der "Hilfetext" für Ihr Diagramm. Dieser wird Ihren Benutzern angezeigt, wenn sie die Helminstallation ausführen.
 - `deployment.yam` : Ein grundlegendes Manifest für die Erstellung eines Kubernetes-Einsatzes
