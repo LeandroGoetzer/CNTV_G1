@@ -74,6 +74,8 @@ Um eine Version zu deinstallieren, verwenden Sie den Befehl helm uninstall:
 
 ## A Starter Chart
 
+Folgende Anleitung wurde durchgemacht: [Getting-Started](https://helm.sh/docs/chart_template_guide/getting_started/)
+
 Für diese Anleitung erstellen wir ein einfaches Diagramm namens mychart und erstellen dann einige Vorlagen innerhalb des Diagramms.
 
         $ helm create mychart
