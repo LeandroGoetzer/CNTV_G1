@@ -28,6 +28,8 @@ Sobald diese installiert ist, kann man die charts auflisten, die man installiere
 
         $ helm search repo bitnami
 
+[QuickstartGuide](https://helm.sh/docs/intro/quickstart/)
+
 ## Install an Example Chart
 
 Um eine chart zu installieren, kann man den Befehl helm install ausführen. Helm bietet mehrere Möglichkeiten, ein Diagramm zu finden und zu installieren, aber am einfachsten ist es, die Bitnami-Diagramme zu verwenden.
@@ -48,7 +50,6 @@ Mit Helm ist es einfach zu sehen, was veröffentlicht wurde:
         NAME            	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART      	APP VERSION
         mysql-1612624192	default  	1       	2021-02-06 16:09:56.283059 +0100 CET	deployed	mysql-8.3.0	8.0.23
 
-Uninstall a Release
 Um eine Version zu deinstallieren, verwenden Sie den Befehl helm uninstall:
 
         $ helm uninstall mysql-1612624192
@@ -58,6 +59,71 @@ Um eine Version zu deinstallieren, verwenden Sie den Befehl helm uninstall:
         $ helm status mysql-1612624192
         Status: UNINSTALLED
         ...
+
+[QuickstartGuide](https://helm.sh/docs/intro/quickstart/)
+
+## A Starter Chart
+
+Für diese Anleitung erstellen wir ein einfaches Diagramm namens mychart und erstellen dann einige Vorlagen innerhalb des Diagramms.
+
+        $ helm create mychart
+        Creating mychart
+
+### Ein kurzer Blick auf 'mychart/templates/'
+Wenn man einen Blick auf das Verzeichnis 'mychart/templates/' wirft, wird man feststellen, dass dort bereits einige Dateien vorhanden sind.
+
+- 'NOTES.txt' : Der "Hilfetext" für Ihr Diagramm. Dieser wird Ihren Benutzern angezeigt, wenn sie die Helminstallation ausführen.
+- 'deployment.yaml' : Ein grundlegendes Manifest für die Erstellung eines Kubernetes-Einsatzes
+- 'service.yaml' : Ein grundlegendes Manifest für die Erstellung eines Service-Endpunkts für Ihr Deployment
+- '_helpers.tpl' : Ein Ort, an dem Sie Hilfsvorlagen ablegen, die Sie im gesamten Diagramm wiederverwenden können
+
+Diese Dateien werden nun alle gelöscht. Auf diese Weise können wir unser Beispiel von Grund auf aufbauen. Wir werden unsere eigene NOTES.txt und _helpers.tpl erstellen, während wir arbeiten.
+
+        $ rm -rf mychart/templates/*
+
+## A First Template
+
+Die erste Vorlage, die wir erstellen werden, ist eine ConfigMap. In Kubernetes ist eine ConfigMap einfach ein Objekt zum Speichern von Konfigurationsdaten. Andere Dinge, wie Pods, können auf die Daten in einer ConfigMap zugreifen.
+
+Da es sich bei ConfigMaps um grundlegende Ressourcen handelt, sind sie ein guter Ausgangspunkt für uns.
+
+Beginnen wir mit der Erstellung einer Datei namens mychart/templates/configmap.yaml:
+
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+        name: mychart-configmap
+        data:
+        myvalue: "Hello World"
+
+Mit dieser einfachen Vorlage haben wir nun ein installierbares chart. Und wir können es wie folgt installieren:
+
+        $ helm install full-coral ./mychart
+        NAME: full-coral
+        LAST DEPLOYED: Tue Nov  1 17:36:01 2016
+        NAMESPACE: default
+        STATUS: DEPLOYED
+        REVISION: 1
+        TEST SUITE: None
+
+Mit Helm können wir die Freigabe abrufen und die tatsächlich geladene Vorlage sehen.
+
+        $ helm get manifest full-coral
+
+        ---
+        # Source: mychart/templates/configmap.yaml
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+        name: mychart-configmap
+        data:
+        myvalue: "Hello World"
+
+Der Befehl helm get manifest nimmt einen Versionsnamen (full-coral) und druckt alle Kubernetes-Ressourcen aus, die auf den Server hochgeladen wurden. Jede Datei beginnt mit ---, um den Beginn eines YAML-Dokuments anzuzeigen, und wird dann von einer automatisch generierten Kommentarzeile gefolgt, die uns sagt, welche Vorlagendatei dieses YAML-Dokument generiert hat.
+
+Von da an können wir sehen, dass die YAML-Daten genau dem entsprechen, was wir in unsere configmap.yaml-Datei geschrieben haben.
+
+Jetzt können wir unsere Version deinstallieren: 'helm uninstall full-coral'.
 
 
 #### [I - Operator Pattern](/aufgaben/I%20-%20Operator%20Pattern.md)
