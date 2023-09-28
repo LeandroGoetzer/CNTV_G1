@@ -89,7 +89,15 @@ Wenn man einen Blick auf das Verzeichnis `mychart/templates/` wirft, wird man fe
 
 Diese Dateien werden nun alle gelöscht. Auf diese Weise können wir unser Beispiel von Grund auf aufbauen. Wir werden unsere eigene NOTES.txt und _helpers.tpl erstellen, während wir arbeiten.
 
+Gemäss Anleitung so wird dies so gelöscht:
+
         $ rm -rf mychart/templates/*
+
+Hat aber bei uns nicht geklappt, wir haben dies so durchgeführt:
+
+        rm -r *
+
+        
 
 ## A First Template
 
