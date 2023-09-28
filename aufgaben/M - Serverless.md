@@ -2,8 +2,6 @@
 #### [Hauptseite](/README.md)
 #### [J - Monitoring](/aufgaben/J%20-%20Monitoring.md)
 # M - Serverless
-je je
-
 
 
 #### [Hauptseite](/README.md)

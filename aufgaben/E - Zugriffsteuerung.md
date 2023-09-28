@@ -2,7 +2,6 @@
 #### [Hauptseite](/README.md)
 #### [D - Horizontal pod autoscaler](/aufgaben/D%20-%20Horizontal%20pod%20autoscaler.md)
 # E - Zugriffsteuerung
-blo blo
 
 
 #### [H - Helm der paketmanager für Kubernetes](/aufgaben/H-%20Helm%20der%20paketmanager%20für%20Kubernetes.md)

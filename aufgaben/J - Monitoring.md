@@ -2,7 +2,6 @@
 #### [Hauptseite](/README.md)
 #### [I - Operator Pattern](/aufgaben/I%20-%20Operator%20Pattern.md)
 # J - Monitoring
-le le
 
 
 #### [M - Serverless](/aufgaben/M%20-%20Serverless.md)
