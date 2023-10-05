@@ -62,11 +62,15 @@ shell-operator-pod.yaml:
             imagePullPolicy: Always
         serviceAccountName: monitor-pods-acc
 
-
+Docker installieren:
 
         sudo snap install docker
 
+Docker Container erstellen names shell:
+
         docker build -t shell .
+
+Pod exampl-monitor erstellen:
 
         kubectl create namespace example-monitor-pods
         kubectl create serviceaccount monitor-pods-acc --namespace example-monitor-pods
