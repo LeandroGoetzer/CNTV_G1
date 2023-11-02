@@ -85,5 +85,10 @@ Nach dem Starten eines Pods, sollte das Log um ein paar Einträge reicher sein
 
         kubectl -n example-monitor-pods logs po/shell-operator
 
+Nützliche Links:
+
+[Docker Install Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+[Einfacher Operator](https://gitlab.com/ch-tbz-hf/Stud/v-cnt/-/tree/main/2_Unterrichtsressourcen/I/operator)
+
 #### [J - Monitoring](/aufgaben/J%20-%20Monitoring.md)
 #### [Hauptseite](/README.md)
