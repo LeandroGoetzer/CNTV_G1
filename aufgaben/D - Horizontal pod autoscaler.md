@@ -3,6 +3,8 @@
 #### [C - Init container](/aufgaben/C%20-%20Init%20container.md)
 # D - Horizontal pod autoscaler
 
+Der Horizontal Pod Autoscaler skaliert automatisch die Anzahl der Pods eines Replication Controller, Deployment oder Replikat Set basierend auf der beobachteten CPU-Auslastung (oder, mit Unterstützung von benutzerdefinierter Metriken, von der Anwendung bereitgestellten Metriken).
+
 ## Deploy a sample application
 
 Um einen HorizontalPodAutoscaler zu demonstrieren, starten wir zunächst ein Deployment, das einen Container mit dem hpa-Beispiel-Image ausführt, und stellen ihn mit dem folgenden Manifest als Dienst bereit:
