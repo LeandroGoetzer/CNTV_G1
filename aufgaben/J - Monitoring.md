@@ -52,5 +52,4 @@ Webseiten:
 - [Prometheus](http://10.1.38.36:32137)
 - [Grafana](http://10.1.38.36:30165)
 
-#### [M - Serverless](/aufgaben/M%20-%20Serverless.md)
 #### [Hauptseite](/README.md)
