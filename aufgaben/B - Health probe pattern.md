@@ -3,12 +3,20 @@
 #### [A - Jobs](/aufgaben/A%20-%20Jobs.md)
 # B - Health probe pattern
 
+Beim Health Probe Pattern geht es darum, wie eine Anwendung ihren Gesundheitszustand an Kubernetes mitteilen kann. Um vollständig automatisierbar zu sein, muss eine Cloud-native Anwendung in hohem Maße beobachtbar sein, indem ihr Zustand abgeleitet werden kann, damit Kubernetes erkennen kann, ob die Anwendung läuft und bereit ist, Anfragen zu bedienen.
+
 ## Liveness-Test
 Das Kubelet verwendet Liveness Probes, um zu wissen, wann ein Container neu gestartet werden muss. Liveness Probes können zum Beispiel einen Deadlock erkennen, bei dem eine Anwendung zwar läuft, aber nicht vorankommt. Der Neustart eines Containers in einem solchen Zustand kann dazu beitragen, dass die Anwendung trotz Fehlern besser verfügbar ist.
 Folgende möglichkeit für einen Liveness-Test gibt Kubernetes:
-- [Liveness-Test via "command"](#liveness-test-via-command)
-- [Liveness-Test via HTTP anfrage](#liveness-test-via-http-anfrage)
-- [Liveness-Test via TCP](#liveness-test-via-tcp)
+- [B - Health probe pattern](#b---health-probe-pattern)
+  - [Liveness-Test](#liveness-test)
+    - [Liveness-Test via "command"](#liveness-test-via-command)
+    - [Liveness-Test via HTTP anfrage](#liveness-test-via-http-anfrage)
+    - [Liveness-Test via TCP](#liveness-test-via-tcp)
+  - [Readiness](#readiness)
+  - [Startup Probes](#startup-probes)
+      - [C - Init container](#c---init-container)
+      - [Hauptseite](#hauptseite-1)
 
 ### Liveness-Test via "command"
 
