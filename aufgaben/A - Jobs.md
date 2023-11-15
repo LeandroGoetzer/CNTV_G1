@@ -77,3 +77,5 @@ kubectl delete -f https://k8s.io/examples/application/job/cronjob.yaml
 Hier aufgezeigt, wie dies aussieht:
 
 ![bild3](/attachements/4.png)
+
+#### [B - Health probe pattern](/aufgaben/B%20-%20Health%20probe%20pattern.md)
