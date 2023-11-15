@@ -3,6 +3,8 @@
 #### [H - Helm der paketmanager für Kubernetes](/aufgaben/H-%20Helm%20der%20paketmanager%20für%20Kubernetes.md)
 # I - Operator Pattern
 
+Das Operator-Pattern zielt darauf ab, das Hauptziel eines menschlichen Operators zu erfassen, der einen Dienst oder eine Reihe von Diensten verwaltet. Menschliche Betreiber, die sich um bestimmte Anwendungen und Dienste kümmern, verfügen über fundierte Kenntnisse darüber, wie sich das System verhalten sollte, wie es einzusetzen ist und wie bei Problemen zu reagieren ist.
+
 ## Wie könnte ein Operator im Detail aussehen? Hier ist ein Beispiel:
 
 1. Eine benutzerdefinierte Ressource namens SampleDB, die Sie im Cluster konfigurieren können.
