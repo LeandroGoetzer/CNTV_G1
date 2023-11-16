@@ -2,9 +2,11 @@
 
 # CronJobs
 
+CronJobs sind wiederkehrende Aufgaben, die automatisiert auf unixartigen Betriebssystemen wie Linux oder iOS/Mac OS X sowie auf Serverumgebungen ausgeführt werden können. Der sogenannte Cron-Daemon bildet die Grundlage für CronJobs. Zum Beispiel die Automatisierung von Aufgaben wie das Herunterladen von Dateien für Backups.
+
 ![CroneJobs](/aufgaben/attachements/Snag_1b50784.png)
 
-CronJobs sind wiederkehrende Aufgaben, die automatisiert auf unixartigen Betriebssystemen wie Linux oder iOS/Mac OS X sowie auf Serverumgebungen ausgeführt werden können. Der sogenannte Cron-Daemon bildet die Grundlage für CronJobs.
+# Anleitung
 
 1. Job Code in ein .yaml File kopieren
 
