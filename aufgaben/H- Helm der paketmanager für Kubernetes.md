@@ -5,6 +5,8 @@
 
 In Kubernetes ist ein "Helm" ein Paketmanager, der dazu verwendet wird, Kubernetes-Anwendungen zu verwalten und zu bereitstellen. Helm ermöglicht es Entwicklern und Betreibern, Container-Anwendungen in Kubernetes-Clustern einfacher zu verwalten, indem es die Verpackung von Anwendungen und deren Abhängigkeiten in sogenannten "Charts" erleichtert.
 
+![Bild](/aufgaben/attachements/image-10-1024x613.png)
+
 Hier sind einige der wichtigsten Konzepte in Helm:
 
 1. Chart: Ein Helm-Chart ist ein Paket von vordefinierten Kubernetes-Ressourcen, die eine Anwendung oder einen Service beschreiben. Ein Chart kann beispielsweise Konfigurationsdateien, Dienste, Berechtigungen und Abhängigkeiten enthalten. Mit Charts können Sie Anwendungen schnell und wiederholbar bereitstellen.
